@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>John Matthew L. Bernabe | IT Systems Administrator & MSP Specialist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            navy: {
+              950: '#0B1120',
+              900: '#0F172A',
+              850: '#131C31',
+              800: '#1E293B',
+            },
+            electric: '#38BDF8',
+            emeraldPulse: '#10B981',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* Subtle architectural grid background */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+    }
+    html:not(.dark) .bg-grid-pattern {
+      background-image: 
+        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    }
+    .glass-card {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-navy-950 dark:text-slate-100 font-sans antialiased transition-colors duration-300 bg-grid-pattern selection:bg-sky-500/30 selection:text-sky-200">
+
+  <!-- Ambient Top Glow -->
+  <div class="pointer-events-none fixed inset-x-0 top-0 -z-10 flex justify-center overflow-hidden">
+    <div class="h-[340px] w-[900px] rounded-full bg-sky-500/10 dark:bg-sky-400/10 blur-3xl"></div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Sticky Navigation Bar -->
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-navy-950/85 glass-card">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand Monogram -->
+        <a href="#overview" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-navy-950 font-extrabold text-sm tracking-tight shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
+            JMB
+          </div>
+          <div class="hidden sm:block">
+            <span class="font-bold text-slate-900 dark:text-white text-sm tracking-tight block leading-none">John Matthew Bernabe</span>
+            <span class="text-[11px] font-mono text-sky-600 dark:text-sky-400">IT SysAdmin &bull; MSP</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <a href="#overview" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Overview</a>
+          <a href="#experience" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Experience</a>
+          <a href="#skills" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Skills & Stack</a>
+          <a href="#tools" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Tools Matrix</a>
+          <a href="#education" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Education</a>
+          <a href="#contact" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Contact</a>
+        </nav>
+
+        <!-- Actions: Theme Toggle & CV Button -->
+        <div class="flex items-center gap-2.5">
+          <button id="theme-toggle" aria-label="Toggle Light/Dark Mode" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-navy-900 hover:border-sky-400/50 text-slate-700 dark:text-slate-300 transition-all">
+            <!-- Sun Icon (shown in dark mode) -->
+            <svg id="icon-sun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+            <!-- Moon Icon (shown in light mode) -->
+            <svg id="icon-moon" class="w-4 h-4 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <a href="https://drive.google.com/file/d/1jChz72NzJyU4SWj-97i64D7HWpJ0VfWC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-navy-950 font-semibold text-xs sm:text-sm shadow-md shadow-sky-500/20 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>View / Download CV</span>
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" aria-label="Open Navigation Menu" class="lg:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-navy-900 text-slate-700 dark:text-slate-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-navy-950 px-4 py-3 space-y-1">
+      <a href="#overview" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Overview</a>
+      <a href="#experience" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Experience</a>
+      <a href="#skills" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Skills & Stack</a>
+      <a href="#tools" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Tools Matrix</a>
+      <a href="#education" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Education</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-navy-900">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-12 sm:py-16">
+
+    <!-- 1. HERO SECTION -->
+    <section id="overview" class="scroll-mt-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <!-- Left Content -->
+        <div class="lg:col-span-8 space-y-6">
+          <!-- Status & Location Pills -->
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              Available for Remote US / Global Roles
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-200/70 dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-300/70 dark:border-slate-800">
+              <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              San Pablo City, Laguna, Philippines (Supporting US & Global Time Zones)
+            </span>
+          </div>
+
+          <!-- Name & Headline -->
+          <div class="space-y-3">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+              John Matthew L. <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-500 dark:from-sky-400 dark:to-cyan-300">Bernabe</span>
+            </h1>
+            <h2 class="text-xl sm:text-2xl font-semibold text-slate-700 dark:text-slate-300">
+              IT Systems Administrator & Managed Service Provider (MSP) Support Specialist
+            </h2>
+          </div>
+
+          <!-- Executive Summary -->
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
+            Over 5 years of hands-on experience in fast-paced Managed Service Provider (MSP) environments, supporting <span class="text-slate-900 dark:text-slate-200 font-medium">40+ client organizations</span> and resolving <span class="text-slate-900 dark:text-slate-200 font-medium">20–30 tickets daily</span> while consistently meeting strict SLAs. Specializing in <span class="text-sky-600 dark:text-sky-400 font-medium">Microsoft 365</span>, <span class="text-sky-600 dark:text-sky-400 font-medium">Entra ID (Azure AD)</span>, <span class="text-sky-600 dark:text-sky-400 font-medium">Active Directory</span>, RMM platforms, and multi-layered endpoint security.
+          </p>
+
+          <!-- Primary CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="https://drive.google.com/file/d/1jChz72NzJyU4SWj-97i64D7HWpJ0VfWC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-navy-950 font-bold text-sm shadow-lg shadow-sky-500/25 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              View Full CV (Google Drive)
+            </a>
+
+            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 dark:bg-navy-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition-all">
+              <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Get In Touch
+            </a>
+
+            <button onclick="copyText('brnbsti@gmail.com', 'Email copied to clipboard!')" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white dark:bg-navy-900 hover:border-sky-400/60 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-300 dark:border-slate-800 transition-all">
+              <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              Copy Email
+            </button>
+
+            <button onclick="openPitchModal()" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-semibold text-sm border border-emerald-500/30 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+              </svg>
+              Recruiter Intro Pitch
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Visual: Geometric Monogram Identity Card -->
+        <div class="lg:col-span-4 flex justify-center lg:justify-end">
+          <div class="relative w-full max-w-sm rounded-3xl p-6 bg-white/90 dark:bg-navy-900/90 border border-slate-200 dark:border-slate-800 shadow-2xl shadow-sky-950/20 glass-card">
+            <!-- Decorative Corner Accents -->
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-6">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                SYS_STATUS: ONLINE
+              </span>
+              <span>SLA_TARGET: 99.9%</span>
+            </div>
+
+            <!-- Geometric JMB Emblem -->
+            <div class="relative mx-auto w-36 h-36 rounded-2xl bg-gradient-to-br from-navy-900 via-navy-800 to-slate-900 dark:from-navy-950 dark:via-navy-900 dark:to-slate-800 border border-sky-400/30 flex items-center justify-center shadow-inner overflow-hidden">
+              <!-- SVG Geometric Circuit Grid -->
+              <svg class="absolute inset-0 w-full h-full opacity-25 text-sky-400" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="0.75" stroke-dasharray="4 3" />
+                <polygon points="50,10 88,30 88,70 50,90 12,70 12,30" stroke="currentColor" stroke-width="1" />
+                <line x1="50" y1="0" x2="50" y2="10" stroke="currentColor" stroke-width="1" />
+                <line x1="50" y1="90" x2="50" y2="100" stroke="currentColor" stroke-width="1" />
+              </svg>
+              <div class="relative text-center">
+                <span class="block text-3xl font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-tr from-sky-400 to-cyan-200">JMB</span>
+                <span class="block text-[10px] font-mono tracking-widest text-slate-400 mt-1">ADMIN // MSP</span>
+              </div>
+            </div>
+
+            <!-- Quick Telemetry Summary -->
+            <div class="mt-6 space-y-2.5 pt-5 border-t border-slate-200 dark:border-slate-800 text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">Primary Stack</span>
+                <span class="font-mono font-semibold text-slate-800 dark:text-sky-300">M365 / Entra ID / AD</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">RMM & PSA</span>
+                <span class="font-mono font-semibold text-slate-800 dark:text-slate-200">NinjaOne / Kaseya BMS</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500 dark:text-slate-400">Timezone Alignment</span>
+                <span class="font-mono font-semibold text-emerald-600 dark:text-emerald-400">US EST / CST / PST Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Metrics Banner (4 Stat Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+        <div class="p-5 rounded-2xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-slate-800 hover:border-sky-500/40 transition-all shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">5+ Years</span>
+            <span class="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-400">MSP & Enterprise IT Experience</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-slate-800 hover:border-sky-500/40 transition-all shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">40+ Clients</span>
+            <span class="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Multi-Tenant Organizations Supported</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-slate-800 hover:border-sky-500/40 transition-all shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">20–30 / Day</span>
+            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Tickets Resolved Within SLA</p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white dark:bg-navy-900/80 border border-slate-200 dark:border-slate-800 hover:border-sky-500/40 transition-all shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Tier 1–3</span>
+            <span class="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </span>
+          </div>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Escalation & Root Cause Resolution</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PROFESSIONAL EXPERIENCE TIMELINE -->
+    <section id="experience" class="scroll-mt-24 space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">Career Track Record</span>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">Professional Experience</h2>
+        </div>
+        <button id="toggle-all-exp" onclick="toggleAllExperience()" class="self-start sm:self-auto text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-300 dark:border-slate-800 bg-white dark:bg-navy-900 hover:border-sky-400/50 text-slate-700 dark:text-slate-300 transition-colors">
+          Collapse / Expand All
+        </button>
+      </div>
+
+      <div id="experience-list" class="relative border-l-2 border-slate-200 dark:border-slate-800 ml-3 sm:ml-4 space-y-6">
+        <!-- Populated dynamically via JS for clean interactivity -->
+      </div>
+    </section>
+
+    <!-- 3. CORE COMPETENCIES & INTERACTIVE SKILLS FILTER -->
+    <section id="skills" class="scroll-mt-24 space-y-8">
+      <div class="space-y-2">
+        <span class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">Technical Capabilities</span>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Core Competencies & Skills Stack</h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
+          Filter across 25+ core technical competencies spanning cloud identity, Windows infrastructure, RMM operations, and endpoint defense.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div id="skill-tabs" class="flex flex-wrap gap-2">
+        <button data-category="all" class="skill-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-sky-500 text-navy-950 shadow-sm">
+          All Skills (28)
+        </button>
+        <button data-category="m365" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400/50">
+          Microsoft 365 & Cloud
+        </button>
+        <button data-category="identity" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400/50">
+          Identity & Infrastructure
+        </button>
+        <button data-category="security" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400/50">
+          Security & Backup
+        </button>
+        <button data-category="rmm" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400/50">
+          RMM & Ticketing
+        </button>
+        <button data-category="support" class="skill-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-navy-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:border-sky-400/50">
+          Support & Operations
+        </button>
+      </div>
+
+      <!-- Skills Grid -->
+      <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- 4. TOOLS & ECOSYSTEM MATRIX -->
+    <section id="tools" class="scroll-mt-24 space-y-8">
+      <div class="space-y-2">
+        <span class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">MSP & Enterprise Platforms</span>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Tools & Ecosystem Matrix</h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
+          Production platforms utilized daily for remote monitoring, PSA ticketing, zero-trust endpoint protection, backup continuity, and network management.
+        </p>
+      </div>
+
+      <div id="tools-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- 5. EDUCATION & CREDENTIALS -->
+    <section id="education" class="scroll-mt-24 space-y-6">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">Academic Foundation</span>
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">Education</h2>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-2xl bg-white dark:bg-navy-900/90 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+        <div class="flex items-start gap-4">
+          <div class="p-3.5 rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Bachelor of Science in Information Technology</h3>
+            <p class="text-sm sm:text-base font-medium text-sky-600 dark:text-sky-400 mt-0.5">Lyceum of the Philippines University - Laguna</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Focus on Systems Administration, Networking, and Enterprise IT Infrastructure</p>
+          </div>
+        </div>
+        <span class="self-start sm:self-center px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+          2013 – 2018
+        </span>
+      </div>
+    </section>
+
+    <!-- 6. CONTACT & QUICK RECRUITER ACTIONS -->
+    <section id="contact" class="scroll-mt-24">
+      <div class="rounded-3xl p-6 sm:p-10 bg-gradient-to-br from-slate-900 via-navy-900 to-navy-950 border border-slate-800 text-white shadow-2xl relative overflow-hidden">
+        <!-- Decorative glow -->
+        <div class="pointer-events-none absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-sky-500/15 blur-3xl"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div class="lg:col-span-7 space-y-4">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-sky-500/15 text-sky-300 border border-sky-400/25">
+              READY TO CONTRIBUTE
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Let's Strengthen Your IT Operations & Client Support
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Experienced working independently in remote environments, supporting 40+ multi-tenant clients simultaneously, and collaborating across US and global time zones. Reach out directly or review my full CV below.
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-2">
+              <a href="mailto:brnbsti@gmail.com?subject=IT%20Systems%20Administrator%20/%20MSP%20Role%20Opportunity" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-navy-950 font-bold text-sm transition-all shadow-lg shadow-sky-500/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                Send Direct Email
+              </a>
+
+              <a href="https://drive.google.com/file/d/1jChz72NzJyU4SWj-97i64D7HWpJ0VfWC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-sm border border-white/15 transition-all">
+                <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+                Open CV on Google Drive
+              </a>
+            </div>
+          </div>
+
+          <!-- Direct Contact Details Card -->
+          <div class="lg:col-span-5 space-y-3 bg-navy-950/80 border border-slate-800 p-5 sm:p-6 rounded-2xl">
+            <!-- Email Row -->
+            <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-navy-900 border border-slate-800">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="p-2 rounded-lg bg-sky-500/15 text-sky-400 shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="truncate">
+                  <span class="block text-[11px] font-mono text-slate-400">EMAIL ADDRESS</span>
+                  <a href="mailto:brnbsti@gmail.com" class="text-sm font-semibold text-white hover:text-sky-400 truncate block">brnbsti@gmail.com</a>
+                </div>
+              </div>
+              <button onclick="copyText('brnbsti@gmail.com', 'Email address copied!')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-sky-300 shrink-0 transition-colors">
+                Copy
+              </button>
+            </div>
+
+            <!-- Phone Row -->
+            <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-navy-900 border border-slate-800">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="p-2 rounded-lg bg-emerald-500/15 text-emerald-400 shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                </div>
+                <div class="truncate">
+                  <span class="block text-[11px] font-mono text-slate-400">PHONE / MOBILE</span>
+                  <span class="text-sm font-semibold text-white block">0935-240-3150</span>
+                </div>
+              </div>
+              <button onclick="copyText('0935-240-3150', 'Phone number copied!')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-emerald-300 shrink-0 transition-colors">
+                Copy
+              </button>
+            </div>
+
+            <!-- Location Row -->
+            <div class="flex items-center gap-3 p-3 rounded-xl bg-navy-900 border border-slate-800">
+              <div class="p-2 rounded-lg bg-slate-800 text-slate-300 shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <span class="block text-[11px] font-mono text-slate-400">LOCATION</span>
+                <span class="text-sm font-semibold text-white block">San Pablo City, Laguna, Philippines</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800/80 py-8 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <p>&copy; 2026 John Matthew L. Bernabe. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a href="https://drive.google.com/file/d/1jChz72NzJyU4SWj-97i64D7HWpJ0VfWC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="hover:text-sky-500 transition-colors">CV Document</a>
+        <span>&bull;</span>
+        <a href="mailto:brnbsti@gmail.com" class="hover:text-sky-500 transition-colors">brnbsti@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Recruiter Intro Pitch Modal -->
+  <div id="pitch-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm">
+    <div class="w-full max-w-2xl rounded-2xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-fadeIn">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base">Executive Summary & MSP Cover Pitch</h3>
+        </div>
+        <button onclick="closePitchModal()" aria-label="Close modal" class="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-navy-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto text-sm text-slate-700 dark:text-slate-300 leading-relaxed" id="pitch-content">
+        <p>Hi,</p>
+        <p>
+          My name is <strong>John Matthew Bernabe</strong>. I have over five years of experience in IT support within a Managed Service Provider (MSP) environment, providing technical support and administering Microsoft 365 environments for multiple clients.
+        </p>
+        <p>
+          In my current capacity, I support <strong>40+ client organizations</strong> and handle approximately <strong>20–30 tickets per day</strong>, covering technical issues, user requests, account administration, and system troubleshooting while maintaining strict service-level agreements (SLAs).
+        </p>
+        <div class="p-4 rounded-xl bg-slate-100 dark:bg-navy-950 border border-slate-200 dark:border-slate-800 space-y-2 text-xs sm:text-sm">
+          <p class="font-semibold text-slate-900 dark:text-white">Key Highlights:</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Microsoft 365 & Entra ID:</strong> User/license management, Exchange Online, shared mailboxes, delegation, SharePoint, Teams, MFA, conditional access, and security administration.</li>
+            <li><strong>Infrastructure & Active Directory:</strong> User provisioning, account management, GPO administration, and basic Azure cloud operations.</li>
+            <li><strong>MSP Operations & RMM:</strong> Queue management in Kaseya BMS & CA Service Desk, endpoint patching, monitoring, and remediation via NinjaOne and ConnectWise RMM.</li>
+          </ul>
+        </div>
+        <p>
+          I am comfortable working independently in a remote environment, supporting multiple clients simultaneously, and collaborating across US and global time zones.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-3 px-6 py-4 bg-slate-50 dark:bg-navy-950/60 border-t border-slate-200 dark:border-slate-800">
+        <button onclick="copyPitchText()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-navy-950 font-semibold text-xs sm:text-sm transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+          Copy Summary Text
+        </button>
+        <button onclick="closePitchModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-navy-800">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. DATA REPOSITORY (Sourced from CV)
+    // ==========================================
+    const experiences = [
+      {
+        role: "IT Support Specialist",
+        company: "SJC Technology Inc.",
+        type: "Freelance / VA — Florida, USA",
+        badge: "MSP Multi-Tenant",
+        expanded: true,
+        bullets: [
+          "Deliver Tier 1–2 technical support via phone, email, and chat across multiple client environments.",
+          "Administer Microsoft 365 services, including Exchange Online mailbox provisioning, user licensing, password resets, MFA assistance, Entra ID, SharePoint, Teams, and initial user onboarding.",
+          "Diagnose and resolve hardware, software, and OS-level issues on Windows workstations and servers.",
+          "Support on-premises and cloud infrastructure, including user accounts, file access, and basic server administration.",
+          "Monitor system health and performance using RMM and monitoring tools; respond to alerts and perform remediation.",
+          "Manage incident and service request tickets using Kaseya BMS, ensuring accurate documentation and SLA compliance.",
+          "Perform root cause analysis to reduce recurring issues and improve system reliability, and provide technical recommendations to clients."
+        ]
+      },
+      {
+        role: "IT Helpdesk Engineer",
+        company: "Dominant-IT",
+        type: "Freelance / VA — Las Vegas, USA",
+        badge: "Cloud & Identity",
+        expanded: true,
+        bullets: [
+          "Troubleshoot and resolve technical issues related to Office 365, Azure, and Active Directory.",
+          "Maintain a high level of customer satisfaction by providing clear communication and timely resolutions.",
+          "Assist with user account setups, software installations, and system configurations.",
+          "Educate and guide users on best practices for security, productivity, and IT policies."
+        ]
+      },
+      {
+        role: "IT Admin / Support",
+        company: "Metroplex Medical Center",
+        type: "Freelance / VA — Texas, USA",
+        badge: "Healthcare IT",
+        expanded: true,
+        bullets: [
+          "Administer Microsoft 365 environments and troubleshoot hardware and software issues across clinical/administrative staff.",
+          "Provide business phone system support and execute ad hoc IT operational tasks."
+        ]
+      },
+      {
+        role: "IT Admin / Support",
+        company: "Redwood Family Health Center",
+        type: "Freelance / VA — Texas, USA",
+        badge: "Healthcare IT",
+        expanded: true,
+        bullets: [
+          "Administer Microsoft 365 and perform routine system maintenance.",
+          "Ensure workstations and systems are properly patched and updated.",
+          "Provide end-user software/hardware troubleshooting alongside operational and executive support tasks."
+        ]
+      },
+      {
+        role: "IT Helpdesk Technician",
+        company: "Cognizant Technology Solutions",
+        type: "Enterprise Operations — Philippines",
+        badge: "Enterprise Helpdesk",
+        expanded: true,
+        bullets: [
+          "Provided remote technical support to enterprise clients using Citrix remote access tools.",
+          "Managed and documented incidents, service requests, and resolutions through CA Service Desk ticketing system.",
+          "Troubleshot and resolved hardware, software, printer, network, and connectivity issues for end users.",
+          "Assisted clients with password resets, account access, software installations, and basic POS / pin pad connectivity and configuration.",
+          "Handled inbound support calls, coordinated Level 3 escalations, and ensured timely client follow-up."
+        ]
+      }
+    ];
+
+    const skillsData = [
+      // Microsoft 365 & Cloud
+      { name: "Microsoft 365 Administration (Users, Licensing, MFA)", category: "m365", tag: "M365 & Cloud" },
+      { name: "Exchange Online Mail Flow Rules & Spam Filtering", category: "m365", tag: "M365 & Cloud" },
+      { name: "Shared Mailboxes, Delegation & Delivery Troubleshooting", category: "m365", tag: "M365 & Cloud" },
+      { name: "SharePoint & Microsoft Teams Administration", category: "m365", tag: "M365 & Cloud" },
+      { name: "Azure Basic Cloud Administration & Resources", category: "m365", tag: "M365 & Cloud" },
+
+      // Identity & Infrastructure
+      { name: "Microsoft Entra ID (Azure AD & Conditional Access)", category: "identity", tag: "Identity & Infra" },
+      { name: "Active Directory (Users, Groups, GPOs, Password Policies)", category: "identity", tag: "Identity & Infra" },
+      { name: "User Account Provisioning & Access Management", category: "identity", tag: "Identity & Infra" },
+      { name: "Windows OS Administration (Windows 10 / 11)", category: "identity", tag: "Identity & Infra" },
+      { name: "Windows Server & Hybrid Infrastructure Support", category: "identity", tag: "Identity & Infra" },
+      { name: "Network Troubleshooting (DNS, DHCP, LAN/WAN)", category: "identity", tag: "Identity & Infra" },
+
+      // Security & Backup
+      { name: "Security Monitoring & Endpoint Protection", category: "security", tag: "Security & Backup" },
+      { name: "Application Allowlisting & Zero-Trust (ThreatLocker)", category: "security", tag: "Security & Backup" },
+      { name: "SASE & Threat Defense (Todyl & DarkWeb DWP)", category: "security", tag: "Security & Backup" },
+      { name: "Antivirus Deployment, Updates & Maintenance", category: "security", tag: "Security & Backup" },
+      { name: "Backup Monitoring & Daily Backup Operations", category: "security", tag: "Security & Backup" },
+      { name: "Data Backup, Restore & Disaster Recovery (Axcient x360)", category: "security", tag: "Security & Backup" },
+
+      // RMM & Ticketing
+      { name: "Remote Monitoring & Management (NinjaOne & ConnectWise)", category: "rmm", tag: "RMM & Ticketing" },
+      { name: "Kaseya BMS (PSA Ticketing, SLA & Documentation)", category: "rmm", tag: "RMM & Ticketing" },
+      { name: "CA Service Desk & Spiceworks Incident Tracking", category: "rmm", tag: "RMM & Ticketing" },
+      { name: "Technical Documentation & SOP Knowledge Base", category: "rmm", tag: "RMM & Ticketing" },
+
+      // Support & Operations
+      { name: "Multi-Tenant MSP Environment Support (40+ Clients)", category: "support", tag: "Support & Ops" },
+      { name: "Hardware & Software Troubleshooting (Repair & Recovery)", category: "support", tag: "Support & Ops" },
+      { name: "Desktop & Laptop Installation, Config & Deployment", category: "support", tag: "Support & Ops" },
+      { name: "General System Maintenance & Patch Management", category: "support", tag: "Support & Ops" },
+      { name: "System Performance Optimization & Root Cause Analysis", category: "support", tag: "Support & Ops" },
+      { name: "Incident, Problem & Service Request Management", category: "support", tag: "Support & Ops" },
+      { name: "Multi-Channel Support (Phone, Email, Chat) & Training", category: "support", tag: "Support & Ops" }
+    ];
+
+    const toolsData = [
+      { name: "Ninja RMM", category: "RMM & Patching" },
+      { name: "ConnectWise RMM", category: "RMM & Patching" },
+      { name: "ScreenConnect", category: "Remote Access" },
+      { name: "Kaseya BMS", category: "PSA & Ticketing" },
+      { name: "CA Service Desk", category: "ITSM Ticketing" },
+      { name: "Spiceworks", category: "Helpdesk & IT" },
+      { name: "Citrix", category: "Virtualization" },
+      { name: "Pax8", category: "Cloud Marketplace" },
+      { name: "Todyl", category: "SASE & Security" },
+      { name: "ThreatLocker", category: "Zero-Trust Security" },
+      { name: "Kaseya DarkWeb DWP", category: "Threat Intel" },
+      { name: "Axcient x360 Backup", category: "BDR & Recovery" },
+      { name: "Datto Workplace", category: "Cloud File Sync" },
+      { name: "Ninite Pro", category: "App Patching" },
+      { name: "ZeroTier", category: "SD-WAN / VPN" },
+      { name: "NetGear Insight Pro", category: "Cloud Networking" },
+      { name: "LiveHelpNow", category: "Live Support Chat" },
+      { name: "MyGlue", category: "IT Documentation" }
+    ];
+
+    // ==========================================
+    // 2. RENDER FUNCTIONS
+    // ==========================================
+    function renderExperience() {
+      const container = document.getElementById('experience-list');
+      container.innerHTML = experiences.map((exp, idx) => `
+        <div class="relative pl-6 sm:pl-8">
+          <!-- Timeline Node -->
+          <span class="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-sky-500 ring-4 ring-slate-50 dark:ring-navy-950"></span>
+          
+          <div class="rounded-2xl bg-white dark:bg-navy-900/90 border border-slate-200 dark:border-slate-800 hover:border-sky-500/40 transition-all shadow-sm overflow-hidden">
+            <button onclick="toggleExpCard(${idx})" class="w-full text-left p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 focus:outline-none">
+              <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">${exp.role}</h3>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                    ${exp.badge}
+                  </span>
+                </div>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-300">
+                  <span class="text-slate-900 dark:text-white font-semibold">${exp.company}</span> &bull; ${exp.type}
+                </p>
+              </div>
+              <div class="flex items-center gap-2 self-start sm:self-center text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span>${exp.expanded ? 'Hide Details' : 'Show Details'}</span>
+                <svg class="w-4 h-4 transition-transform duration-200 ${exp.expanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+
+            <div class="${exp.expanded ? 'block' : 'hidden'} px-5 sm:px-6 pb-6 pt-1 border-t border-slate-100 dark:border-slate-800/70">
+              <ul class="space-y-2.5 mt-3 text-sm text-slate-600 dark:text-slate-300">
+                ${exp.bullets.map(b => `
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-4 h-4 text-sky-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path>
+                    </svg>
+                    <span>${b}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleExpCard(index) {
+      experiences[index].expanded = !experiences[index].expanded;
+      renderExperience();
+    }
+
+    let allExpanded = true;
+    function toggleAllExperience() {
+      allExpanded = !allExpanded;
+      experiences.forEach(e => e.expanded = allExpanded);
+      renderExperience();
+    }
+
+    function renderSkills(filter = 'all') {
+      const grid = document.getElementById('skills-grid');
+      const filtered = filter === 'all' ? skillsData : skillsData.filter(s => s.category === filter);
+
+      grid.innerHTML = filtered.map(skill => `
+        <div class="p-4 rounded-xl bg-white dark:bg-navy-900/85 border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 transition-all flex items-start justify-between gap-3 group">
+          <div class="flex items-start gap-3">
+            <span class="p-1.5 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 mt-0.5 group-hover:bg-sky-500 group-hover:text-navy-950 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+            <span class="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug">${skill.name}</span>
+          </div>
+          <span class="shrink-0 text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-navy-800 text-slate-500 dark:text-slate-400">
+            ${skill.tag}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderTools() {
+      const grid = document.getElementById('tools-grid');
+      grid.innerHTML = toolsData.map(tool => `
+        <div class="p-4 rounded-2xl bg-white dark:bg-navy-900/90 border border-slate-200 dark:border-slate-800 hover:border-sky-400/60 hover:-translate-y-0.5 transition-all shadow-sm flex flex-col justify-between">
+          <div class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 dark:text-white leading-tight">${tool.name}</h3>
+            <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 block">${tool.category}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==========================================
+    // 3. INTERACTIVITY & UTILITIES
+    // ==========================================
+    // Skill Tabs Logic
+    document.querySelectorAll('.skill-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.skill-tab').forEach(b => {
+          b.classList.remove('bg-sky-500', 'text-navy-950', 'shadow-sm');
+          b.classList.add('bg-white', 'dark:bg-navy-900', 'text-slate-700', 'dark:text-slate-300', 'border', 'border-slate-200', 'dark:border-slate-800');
+        });
+        btn.classList.remove('bg-white', 'dark:bg-navy-900', 'text-slate-700', 'dark:text-slate-300', 'border', 'border-slate-200', 'dark:border-slate-800');
+        btn.classList.add('bg-sky-500', 'text-navy-950', 'shadow-sm');
+        renderSkills(btn.dataset.category);
+      });
+    });
+
+    // Dark / Light Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Clipboard Helper (Uses execCommand fallback for reliable iFrame support)
+    function copyText(text, message) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(message || 'Copied to clipboard!');
+      } catch (err) {
+        showToast('Unable to copy text.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Toast Notification
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'px-4 py-3 rounded-xl bg-navy-900 dark:bg-slate-800 text-white text-xs sm:text-sm font-medium border border-sky-500/40 shadow-xl flex items-center gap-2.5 transition-all';
+      toast.innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>${msg}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    // Pitch Modal Controls
+    const pitchModal = document.getElementById('pitch-modal');
+    function openPitchModal() {
+      pitchModal.classList.remove('hidden');
+      pitchModal.classList.add('flex');
+    }
+    function closePitchModal() {
+      pitchModal.classList.add('hidden');
+      pitchModal.classList.remove('flex');
+    }
+    function copyPitchText() {
+      const text = document.getElementById('pitch-content').innerText;
+      copyText(text, 'Executive summary copied to clipboard!');
+    }
+    pitchModal.addEventListener('click', (e) => {
+      if (e.target === pitchModal) closePitchModal();
+    });
+
+    // Initialize Page
+    renderExperience();
+    renderSkills('all');
+    renderTools();
+  </script>
+</body>
+</html>
